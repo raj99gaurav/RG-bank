@@ -53,9 +53,13 @@ btnScrollTo.addEventListener("click", function (e) {
   //   s1cords.top + window.pageYOffset
   // ); //s1cords.top is relative to the viewport
 
-  window.scrollTo({
-    left: s1cords.left + window + pageXOffset,
-    top: s1cords.top + window.pageYOffset,
-    behavior: "smooth",
-  });
+  // old method
+  // window.scrollTo({
+  //   left: s1cords.left + window + pageXOffset,
+  //   top: s1cords.top + window.pageYOffset,
+  //   behavior: "smooth",
+  // });
+
+  //new method
+  section1.scrollIntoView({ behavior: "smooth" });
 });
