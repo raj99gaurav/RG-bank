@@ -68,12 +68,31 @@ btnScrollTo.addEventListener("click", function (e) {
 
 ///////////////////////////////////////
 //Page Navigation -> smooth scrolling in nav bar
-document.querySelectorAll(".nav__link ").forEach(function (el) {
-  el.addEventListener("click", function (e) {
-    e.preventDefault();
-    console.log("Links");
-    const id = this.getAttribute("href"); //we dont want absolute url thats why we cant use this.href
+
+//This techq is okay for 3 elements but what if we had 10k elements with a forEach func we will be creating 10k copies and will impact the performance
+// document.querySelectorAll(".nav__link ").forEach(function (el) {
+//   el.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     console.log("Links");
+//     const id = this.getAttribute("href"); //we dont want absolute url thats why we cant use this.href
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: "smooth" }); // common techq to implement scrolling
+//   });
+// });
+
+//Clean Solution For Page Navigation using event deligation -> using parent for all childs
+
+//1. Add event listener to common parent element
+//2.Determine what element originated the event
+document.querySelector(".nav__links").addEventListener("click", function (e) {
+  e.preventDefault();
+  console.log(e.target); //to find where the event is originated from
+
+  //Matching strategy -> so it doesnt trigger if we click on the blank space
+  if (e.target.classList.contains("nav__link")) {
+    console.log("Link");
+    const id = e.target.getAttribute("href");
     console.log(id);
-    document.querySelector(id).scrollIntoView({ behavior: "smooth" }); // common techq to implement scrolling
-  });
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
 });
