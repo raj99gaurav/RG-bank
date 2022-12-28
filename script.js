@@ -1,12 +1,15 @@
 "use strict";
 
-///////////////////////////////////////
-// Modal window
-
+//selections
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -30,9 +33,8 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-const btnScrollTo = document.querySelector(".btn--scroll-to");
-const section1 = document.querySelector("#section--1");
-
+///////////////////////////////////////
+//Button scrolling
 btnScrollTo.addEventListener("click", function (e) {
   const s1cords = section1.getBoundingClientRect();
   console.log(s1cords);
@@ -62,4 +64,16 @@ btnScrollTo.addEventListener("click", function (e) {
 
   //new method
   section1.scrollIntoView({ behavior: "smooth" });
+});
+
+///////////////////////////////////////
+//Page Navigation -> smooth scrolling in nav bar
+document.querySelectorAll(".nav__link ").forEach(function (el) {
+  el.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log("Links");
+    const id = this.getAttribute("href"); //we dont want absolute url thats why we cant use this.href
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" }); // common techq to implement scrolling
+  });
 });
