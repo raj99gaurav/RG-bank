@@ -130,29 +130,24 @@ tabsContainer.addEventListener("click", function (e) {
 });
 
 //Menu fade animation Effect -> all the links fade out except the link we hover over by passing arguments to event handlers
-
-nav.addEventListener("mouseover", function (e) {
-  if (e.target.classList.contains("nav__link")) {
-    const link = e.target; // we dont have any child here so it will work ths time
-    const siblings = link.closest(".nav").querySelectorAll(".nav__link"); //instead of two steps up we  used closest method so in case we ever change the struct this code will still work
-    const logo = link.closest(".nav").querySelector("img");
-
-    siblings.forEach((el) => {
-      if (el !== link) el.style.opacity = 0.5;
-    });
-    logo.style.opacity = 0.5;
-  }
-}); // we dont use mouse enter event as it doesnt bubble
-
-nav.addEventListener("mouseout", function (e) {
+const handleHover = function (e, opacity) {
   if (e.target.classList.contains("nav__link")) {
     const link = e.target;
     const siblings = link.closest(".nav").querySelectorAll(".nav__link");
     const logo = link.closest(".nav").querySelector("img");
 
     siblings.forEach((el) => {
-      if (el !== link) el.style.opacity = 1;
+      if (el !== link) el.style.opacity = opacity;
     });
-    logo.style.opacity = 1;
+    logo.style.opacity = opacity;
   }
+};
+
+//we cant directly do nav.addEventListener("mouseover",handleHover); as we have to pass the parameters
+nav.addEventListener("mouseover", function (e) {
+  handleHover(e, 0.5);
+}); // we dont use mouse enter event as it doesnt bubble
+
+nav.addEventListener("mouseout", function (e) {
+  handleHover(e, 1);
 }); // to go out of hover effect
