@@ -144,10 +144,6 @@ const handleHover = function (e, opacity) {
 };
 
 //we cant directly do nav.addEventListener("mouseover",handleHover); as we have to pass the parameters
-nav.addEventListener("mouseover", function (e) {
-  handleHover(e, 0.5);
-}); // we dont use mouse enter event as it doesnt bubble
+nav.addEventListener("mouseover", handleHover.bind(0.5)); // we dont use mouse enter event as it doesnt bubble
 
-nav.addEventListener("mouseout", function (e) {
-  handleHover(e, 1);
-}); // to go out of hover effect
+nav.addEventListener("mouseout", handleHover.bind(1)); // to go out of hover effect
