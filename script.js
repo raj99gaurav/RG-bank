@@ -96,3 +96,34 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
   }
 });
+
+//Tabbed Component
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
+
+tabsContainer.addEventListener("click", function (e) {
+  // const clicked = e.target;
+  // console.log(clicked); if we click on span elemt (1,2,3 number in the text) we still need the buttton
+  // const clicked = e.target.parentElement; cant do this as we will get button when we click span as it is the parent but when we click the button we will get the container which is button's parent
+  const clicked = e.target.closest(".operations__tab");
+  // console.log(clicked);
+
+  //ignore clicks outside area using Guard clause
+
+  if (!clicked) return;
+
+  //remove the active classes for both tabs and content area
+  tabs.forEach((t) => t.classList.remove("operations__tab--active"));
+  tabsContent.forEach((t) => t.classList.remove("operations__content--active"));
+
+  //active tab
+
+  clicked.classList.add("operations__tab--active");
+
+  //activate the content area
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add("operations__content--active");
+});
