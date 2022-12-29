@@ -101,6 +101,7 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
   }
 });
 
+///////////////////////////////////////
 //Tabbed Component
 
 tabsContainer.addEventListener("click", function (e) {
@@ -129,6 +130,7 @@ tabsContainer.addEventListener("click", function (e) {
     .classList.add("operations__content--active");
 });
 
+///////////////////////////////////////
 //Menu fade animation Effect -> all the links fade out except the link we hover over by passing arguments to event handlers
 const handleHover = function (e) {
   if (e.target.classList.contains("nav__link")) {
@@ -147,3 +149,12 @@ const handleHover = function (e) {
 nav.addEventListener("mouseover", handleHover.bind(0.5)); // we dont use mouse enter event as it doesnt bubble
 
 nav.addEventListener("mouseout", handleHover.bind(1)); // to go out of hover effect
+
+///////////////////////////////////////
+//Implementing sticky navigation : The Scroll event
+const initalCoords = section1.getBoundingClientRect();
+
+window.addEventListener("scroll", function (e) {
+  if (this.window.scrollY > initalCoords.top) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+});
