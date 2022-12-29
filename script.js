@@ -130,16 +130,16 @@ tabsContainer.addEventListener("click", function (e) {
 });
 
 //Menu fade animation Effect -> all the links fade out except the link we hover over by passing arguments to event handlers
-const handleHover = function (e, opacity) {
+const handleHover = function (e) {
   if (e.target.classList.contains("nav__link")) {
     const link = e.target;
     const siblings = link.closest(".nav").querySelectorAll(".nav__link");
     const logo = link.closest(".nav").querySelector("img");
 
     siblings.forEach((el) => {
-      if (el !== link) el.style.opacity = opacity;
+      if (el !== link) el.style.opacity = this; // we need to use this keyword if we want to pass in any other value and for multiple values we can pass in array
     });
-    logo.style.opacity = opacity;
+    logo.style.opacity = this;
   }
 };
 
