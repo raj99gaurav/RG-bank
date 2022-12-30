@@ -184,5 +184,6 @@ const stickyNav = function (entries) {
 const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
   threshold: 0, //0 % of header is visible we want something to happen
+  rootMargin: "-90px", // box of 90 px outside of target element -> header in this case
 });
 headerObserver.observe(header);
