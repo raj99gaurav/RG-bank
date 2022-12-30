@@ -194,7 +194,6 @@ const allSections = document.querySelectorAll(".section");
 
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) return; //guard clause
   entry.target.classList.remove("section--hidden");
   observer.unobserve(entry.target);
@@ -209,3 +208,31 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
 });
+
+///////////////////////////////////////
+//Lazy Loading Images
+const imgTargets = document.querySelectorAll("img[data-src]"); //not all the imgs are going to be lazy loaded so we dont select img
+console.log(imgTargets);
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  if (!entry.isIntersecting) return;
+
+  //replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  // entry.target.classList.remove('lazy-img'); on a slow internet they will load really slow if we do this so we will remove the blur only if the high res img is loaded
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imageObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+});
+
+imgTargets.forEach((img) => imageObserver.observe(img));
