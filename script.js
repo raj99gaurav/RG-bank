@@ -151,10 +151,38 @@ nav.addEventListener("mouseover", handleHover.bind(0.5)); // we dont use mouse e
 nav.addEventListener("mouseout", handleHover.bind(1)); // to go out of hover effect
 
 ///////////////////////////////////////
-//Implementing sticky navigation : The Scroll event
-const initalCoords = section1.getBoundingClientRect();
+//Implementing sticky navigation : The Intersection Observer API
 
-window.addEventListener("scroll", function (e) {
-  if (this.window.scrollY > initalCoords.top) nav.classList.add("sticky");
+//learning about api
+
+// const obsCallback = function (entries, observer) {
+//   //whenever the view port of intersected at 10% this funtion will get called
+//   entries.forEach((entry) => {
+//     console.log(entry);
+//   });
+// };
+
+// const obsOptions = {
+//   root: null, // entire view port
+//   // threshold: 0.1, //% of callback 0.1 = 10% , we can have multiple threshhold
+//   threshold: [0, 0.2], //in and out of the view port
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector(".header");
+
+const stickyNav = function (entries) {
+  const [entry] = entries; // same as entries[0]
+  console.log(entry);
+
+  if (!entry.isIntersecting) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0, //0 % of header is visible we want something to happen
 });
+headerObserver.observe(header);
