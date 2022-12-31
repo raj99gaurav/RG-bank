@@ -206,17 +206,15 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add("section--hidden");
+  // section.classList.add("section--hidden"); for testing the slider
 });
 
 ///////////////////////////////////////
 //Lazy Loading Images
 const imgTargets = document.querySelectorAll("img[data-src]"); //not all the imgs are going to be lazy loaded so we dont select img
-console.log(imgTargets);
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
 
   if (!entry.isIntersecting) return;
 
@@ -237,3 +235,16 @@ const imageObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach((img) => imageObserver.observe(img));
+
+///////////////////////////////////////
+//Building a Slider Component
+const slides = document.querySelectorAll(".slide");
+const btnLeft = document.querySelector(".slider__btn--left");
+const btnRight = document.querySelector(".slider__btn--right");
+
+const slider = document.querySelector(".slider"); //for testing
+slider.style.transform = "scale(0.4) translateX(-800px)"; //for testing
+slider.style.overflow = "visible"; //for testing
+
+slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
+//0%,100%,200%,300%...
