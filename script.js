@@ -249,18 +249,27 @@ const slider = document.querySelector(".slider"); //for testing
 slider.style.transform = "scale(0.4) translateX(-800px)"; //for testing
 slider.style.overflow = "visible"; //for testing
 
-slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
-//0%,100%,200%,300%...
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+
+// slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
+// //0%,100%,200%,300%...
+
+goToSlide(0);
 
 //Go To The Next Slide
-btnRight.addEventListener("click", function () {
+const nextSlide = function () {
   if (currentSlide === maxSlide - 1) {
     currentSlide = 0;
   } else {
     currentSlide++;
   }
-  slides.forEach(
-    (s, i) => (s.style.transform = `translateX(${100 * (i - currentSlide)}%)`)
-  );
-});
+
+  goToSlide(currentSlide);
+};
+
+btnRight.addEventListener("click", nextSlide);
 //-100%,0,100%,200%...
