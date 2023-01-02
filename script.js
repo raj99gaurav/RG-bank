@@ -288,6 +288,7 @@ const slider = function () {
 
   const init = function () {
     goToSlide(0);
+    currentSlide();
     activateDot(0);
   };
 
