@@ -260,6 +260,17 @@ const createDots = function () {
 };
 createDots();
 
+const activateDot = function (slide) {
+  document
+    .querySelectorAll(".dots_dot")
+    .forEach((dot) => dot.classList.remove("dots__dot--active"));
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add("dots__dot--active");
+};
+activateDot(0);
+
 const goToSlide = function (slide) {
   slides.forEach(
     (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
@@ -279,6 +290,7 @@ const nextSlide = function () {
     currentSlide++;
   }
   goToSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
 btnRight.addEventListener("click", nextSlide);
@@ -292,6 +304,7 @@ const prevSlide = function () {
     currentSlide--;
   }
   goToSlide(currentSlide);
+  activateDot(currentSlide);
 };
 btnLeft.addEventListener("click", prevSlide);
 
@@ -306,5 +319,6 @@ dotContainer.addEventListener("click", function (e) {
     // const slide = e.target.dataset.slide; //.slide because data-slide is the attribute
     const { slide } = e.target.dataset;
     goToSlide(slide);
+    activateDot(slide);
   }
 });
