@@ -245,9 +245,9 @@ const btnRight = document.querySelector(".slider__btn--right");
 let currentSlide = 0;
 const maxSlide = slides.length;
 
-const slider = document.querySelector(".slider"); //for testing
-slider.style.transform = "scale(0.4) translateX(-800px)"; //for testing
-slider.style.overflow = "visible"; //for testing
+// const slider = document.querySelector(".slider"); //for testing
+// slider.style.transform = "scale(0.4) translateX(-800px)"; //for testing
+// slider.style.overflow = "visible"; //for testing
 
 const goToSlide = function (slide) {
   slides.forEach(
@@ -267,9 +267,19 @@ const nextSlide = function () {
   } else {
     currentSlide++;
   }
-
   goToSlide(currentSlide);
 };
 
 btnRight.addEventListener("click", nextSlide);
 //-100%,0,100%,200%...
+
+//previous slide
+const prevSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide - 1;
+  } else {
+    currentSlide--;
+  }
+  goToSlide(currentSlide);
+};
+btnLeft.addEventListener("click", prevSlide);
